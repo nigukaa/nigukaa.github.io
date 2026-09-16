@@ -28,8 +28,8 @@
 <meta name="twitter:image" content="https://nigukaa.github.io/niguka logo.jpeg">
 
 <!-- Favicon -->
-<link rel="icon" href="niguka logo.jpeg">
-<link rel="apple-touch-icon" href="niguka logo.jpeg">
+<link rel="icon" href="asset/niguka logo.jpeg">
+<link rel="apple-touch-icon" href="asset/niguka logo.jpeg">
 
 <!-- Structured Data (LocalBusiness) -->
 <script type="application/ld+json">
@@ -277,10 +277,16 @@ button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline
   border:1px solid var(--border);
 }
 .card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.card-icon{
-  font-size:22px;margin-bottom:4px;line-height:1;
+.card-content{flex:1;min-width:0;display:flex;flex-direction:column}
+.card-hero{
+  width:100%;height:150px;object-fit:cover;display:block;
+  background:var(--cream-dark);
 }
-.card-body{flex:1;padding:16px 14px;min-width:0}
+.card-hero-placeholder{
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;background:var(--navy);
+}
+.card-body{flex:1;padding:16px 14px}
 .card-name{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:3px}
 .card-sub{font-size:12px;color:var(--muted);margin-bottom:6px}
 .card-type{
@@ -314,6 +320,12 @@ button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline
 .card-notch-bot{bottom:-7px}
 .card-stub-icon{font-size:18px;margin-bottom:4px;opacity:.9}
 .card-stub-text{font-size:10px;font-weight:600;line-height:1.3;letter-spacing:.3px;opacity:.9}
+
+/* ── PROMO CARD ── */
+.card-promo .card-hero{height:220px}
+.card-promo .card-details{margin-top:8px;font-size:13px;line-height:2}
+.card-promo .card-price{font-weight:700}
+.card-promo .card-save{color:var(--green-dark);font-weight:700}
 
 /* ── DIALOG / MODAL ── */
 dialog{
@@ -504,8 +516,9 @@ dialog.closing{animation:slideDown .25s ease forwards}
 
 /* ── RESPONSIVE ── */
 @media(min-width:540px){
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:stretch}
   .grid .group-header{grid-column:1/-1}
+  .card-promo{grid-column:1/-1;max-width:480px}
   .card,.skeleton-card{margin-bottom:0}
   .hero{min-height:440px}
   .hero h1{font-size:40px}
@@ -539,7 +552,7 @@ dialog.closing{animation:slideDown .25s ease forwards}
 <!-- HEADER -->
 <header class="header">
   <div class="header-left">
-    <img src="niguka logo.jpeg" alt="Niguka" class="header-logo">
+    <img src="asset/niguka logo.jpeg" alt="Niguka" class="header-logo">
     <span class="header-brand">Niguka</span>
   </div>
   <nav class="header-nav">
@@ -552,9 +565,9 @@ dialog.closing{animation:slideDown .25s ease forwards}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-slides" id="heroSlides">
-    <div class="hero-slide active" style="background-image:url('Majestic Fast Ferry (Batam and Singapore).webp')"></div>
-    <div class="hero-slide" style="background-image:url('Universal Studios Singapore.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('garden by the bay.jpg')"></div>
+    <div class="hero-slide active" style="background-image:url('asset/Majestic Fast Ferry (Batam and Singapore).webp')"></div>
+    <div class="hero-slide" style="background-image:url('asset/Universal Studios Singapore.webp')"></div>
+    <div class="hero-slide" style="background-image:url('asset/garden by the bay.webp')"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -656,7 +669,7 @@ dialog.closing{animation:slideDown .25s ease forwards}
   <div class="footer-inner">
     <div>
       <div class="footer-brand">
-        <img src="niguka logo.jpeg" alt="Niguka" class="footer-logo">
+        <img src="asset/niguka logo.jpeg" alt="Niguka" class="footer-logo">
         <div><div class="footer-brand-text">Niguka</div><div class="footer-brand-sub">Singapore Ticket Reseller</div></div>
       </div>
     </div>
@@ -708,75 +721,76 @@ const GROUP_ICONS = {
 };
 
 const TICKETS = [
-  { id: 'majestic', cat: 'ferry', group: 'Ferry', name: 'Majestic Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-  { id: 'sindo', cat: 'ferry', group: 'Ferry', name: 'Sindo Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-  { id: 'horizon', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return / One-way', tags: [], pax: ['Return trip', 'One-way'] },
-  { id: 'horizon-group', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry (Group)', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return trip', tags: ['Min. 5 pax'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-  { id: 'batamfast', cat: 'ferry', group: 'Ferry', name: 'Batam Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: [], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-  { id: 'uss', cat: 'attraction', group: 'Sentosa', name: 'Universal Studios Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
-  { id: 'adventure-cove', cat: 'attraction', group: 'Sentosa', name: 'Adventure Cove Waterpark', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'harry-potter', cat: 'attraction', group: 'Sentosa', name: 'Harry Potter: Visions of Magic', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak'] },
-  { id: 'oceanarium', cat: 'attraction', group: 'Sentosa', name: 'Singapore Oceanarium', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'marine-mammal', cat: 'attraction', group: 'Sentosa', name: 'Marine Mammal Habitat', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'wot', cat: 'attraction', group: 'Sentosa', name: 'Wings of Time', sub: 'Sentosa, Fireworks Show', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'cable-car', cat: 'attraction', group: 'Sentosa', name: 'Singapore Cable Car', sub: 'Sentosa Line + Mount Faber Line', type: 'Two-way ride', tags: [], pax: ['Ticket'] },
-  { id: 'skyhelix', cat: 'attraction', group: 'Sentosa', name: 'SkyHelix Sentosa', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'skyslide', cat: 'attraction', group: 'Sentosa', name: 'SkyPark Skyslide', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'sentosa-4d', cat: 'attraction', group: 'Sentosa', name: 'Sentosa 4D AdventureLand', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'ifly', cat: 'attraction', group: 'Sentosa', name: 'iFly Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'megazip', cat: 'attraction', group: 'Sentosa', name: 'Mega Adventure Park (MegaZip)', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'headrock', cat: 'attraction', group: 'Sentosa', name: 'HeadRock VR', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'hyperdrive', cat: 'attraction', group: 'Sentosa', name: 'HyperDrive Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'luge', cat: 'attraction', group: 'Sentosa', name: 'Skyline Luge Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak', 'Night'] },
-  { id: 'zoo', cat: 'attraction', group: 'Mandai Wildlife', name: 'Singapore Zoo (with Tram)', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
-  { id: 'rainforest', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild Asia', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'rainforest-adv', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild + Adventure', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'river-wonders', cat: 'attraction', group: 'Mandai Wildlife', name: 'River Wonders', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'bird-paradise', cat: 'attraction', group: 'Mandai Wildlife', name: 'Bird Paradise', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'night-safari', cat: 'attraction', group: 'Mandai Wildlife', name: 'Night Safari', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
-  { id: 'curiosity-cove', cat: 'attraction', group: 'Mandai Wildlife', name: 'Curiosity Cove', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'gbtb', cat: 'attraction', group: 'Gardens by the Bay', name: 'Flower Dome + Cloud Forest', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'supertree', cat: 'attraction', group: 'Gardens by the Bay', name: 'Supertree Observatory', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'floral-fantasy', cat: 'attraction', group: 'Gardens by the Bay', name: 'Floral Fantasy', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'gbtb-shuttle', cat: 'attraction', group: 'Gardens by the Bay', name: 'Shuttle Bus Combo', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'flyer', cat: 'attraction', group: 'Marina Bay', name: 'Singapore Flyer', sub: 'Marina Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'sky-dining', cat: 'attraction', group: 'Marina Bay', name: '165 Sky Dining by Singapore Flyer', sub: 'Marina Bay', type: 'Dining experience', tags: [], pax: ['Ticket'] },
-  { id: 'mbs-skypark', cat: 'attraction', group: 'Marina Bay', name: 'MBS SkyPark Observation Deck', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'digital-light', cat: 'attraction', group: 'Marina Bay', name: 'Digital Light Canvas by teamLab', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'sampan', cat: 'attraction', group: 'Marina Bay', name: 'Sampan Rides', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'artscience', cat: 'attraction', group: 'Marina Bay', name: 'ArtScience Museum', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'teamlab', cat: 'attraction', group: 'Marina Bay', name: 'teamLab Future World', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'flesh-bones', cat: 'attraction', group: 'Marina Bay', name: 'Flesh and Bones: The Art of Anatomy', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'into-ocean', cat: 'attraction', group: 'Marina Bay', name: 'Into the Ocean: Journey Beneath', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'nat-gallery', cat: 'attraction', group: 'Museums & Culture', name: 'National Gallery Singapore', sub: 'Civic District', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'art-museum', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Art Museum', sub: 'Tanjong Pagar', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'illusions', cat: 'attraction', group: 'Museums & Culture', name: 'Museum of Illusions', sub: 'Sentosa', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'science-centre', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Science Centre', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'kidstop', cat: 'attraction', group: 'Museums & Culture', name: 'Science Centre KidsSTOP', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'orchid-garden', cat: 'attraction', group: 'Museums & Culture', name: 'National Orchid Garden', sub: 'Botanic Gardens', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'duck-tour', cat: 'attraction', group: 'Tours', name: 'DUCK Tour Singapore', sub: 'Suntec City', type: 'Tour', tags: [], pax: ['Ticket'] },
-  { id: 'dukw', cat: 'attraction', group: 'Tours', name: 'Captain Explorer DUKW Tours', sub: 'Marina Bay', type: 'Tour', tags: [], pax: ['Ticket'] },
-  { id: 'funvee', cat: 'attraction', group: 'Tours', name: 'FunVee Open-Top Bus', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'] },
-  { id: 'bigbus', cat: 'attraction', group: 'Tours', name: 'Big Bus Singapore', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'] },
-  { id: 'river-cruise', cat: 'attraction', group: 'Tours', name: 'Singapore River Cruise', sub: 'Clarke Quay', type: 'Cruise', tags: [], pax: ['Ticket'] },
-  { id: 'mb-cruise', cat: 'attraction', group: 'Tours', name: 'Marina Bay Sightseeing Cruise', sub: 'Marina Bay', type: 'Cruise', tags: [], pax: ['Ticket'] },
-  { id: 'canopy-park', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Park', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'hedge-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Hedge Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'mirror-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Mirror Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'walking-net', cat: 'attraction', group: 'Jewel Changi', name: 'Walking Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'bouncing-net', cat: 'attraction', group: 'Jewel Changi', name: 'Bouncing Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'canopy-bridge', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Bridge', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'kiztopia', cat: 'attraction', group: 'Family & Kids', name: 'Kiztopia Marina Square', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'tayo', cat: 'attraction', group: 'Family & Kids', name: 'Tayo Station', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'pororo', cat: 'attraction', group: 'Family & Kids', name: 'Pororo Park Singapore', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'superpark', cat: 'attraction', group: 'Family & Kids', name: 'SuperPark Singapore', sub: 'Suntec City', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'kidzania', cat: 'attraction', group: 'Family & Kids', name: 'KidZania Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'minecraft', cat: 'attraction', group: 'Family & Kids', name: 'Minecraft Experience: Villager Rescue', sub: 'Singapore', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'tussauds', cat: 'attraction', group: 'Entertainment', name: 'Madame Tussauds Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'ice-cream', cat: 'attraction', group: 'Entertainment', name: 'Museum of Ice Cream', sub: 'Dempsey', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'snow-city', cat: 'attraction', group: 'Entertainment', name: 'Snow City', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'wildwildwet', cat: 'attraction', group: 'Entertainment', name: 'Wild Wild Wet', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'] },
-  { id: 'butterfly', cat: 'attraction', group: 'Entertainment', name: 'Butterfly Park & Insect Kingdom', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'majestic', cat: 'ferry', group: 'Ferry', name: 'Majestic Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'], img: 'asset/Majestic Fast Ferry (Batam and Singapore).webp' },
+  { id: 'sindo', cat: 'ferry', group: 'Ferry', name: 'Sindo Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'], img: 'asset/Sindo Ferry.webp' },
+  { id: 'horizon', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return / One-way', tags: [], pax: ['Return trip', 'One-way'], img: 'asset/Horizon Ferry.webp' },
+  { id: 'horizon-group', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry (Group)', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return trip', tags: ['Min. 5 pax'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'], img: 'asset/Horizon Ferry.webp' },
+  { id: 'batamfast', cat: 'ferry', group: 'Ferry', name: 'Batam Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: [], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'], img: 'asset/Batam Fast Ferry.webp' },
+  { id: 'sentosa-express', cat: 'attraction', group: 'Sentosa', name: 'Sentosa Express Monorail Ticket', sub: 'HarbourFront MRT \u2192 Sentosa', type: 'Monorail ride', tags: [], pax: ['Ticket'], img: 'asset/Sentosa Express Monorail Ticket.webp', promo: { price: '$2', original: '$4', save: '$2', minQty: 2 } },
+  { id: 'uss', cat: 'attraction', group: 'Sentosa', name: 'Universal Studios Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Adult', 'Child'], img: 'asset/Universal Studios Singapore.webp' },
+  { id: 'adventure-cove', cat: 'attraction', group: 'Sentosa', name: 'Adventure Cove Waterpark', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Adventure Cove Waterpark.webp' },
+  { id: 'harry-potter', cat: 'attraction', group: 'Sentosa', name: 'Harry Potter: Visions of Magic', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak'], img: 'asset/Harry Potter Visions of Magic.webp' },
+  { id: 'oceanarium', cat: 'attraction', group: 'Sentosa', name: 'Singapore Oceanarium', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Singapore Oceanarium.webp' },
+  { id: 'marine-mammal', cat: 'attraction', group: 'Sentosa', name: 'Marine Mammal Habitat', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Marine Mammal Habitat.webp' },
+  { id: 'wot', cat: 'attraction', group: 'Sentosa', name: 'Wings of Time', sub: 'Sentosa, Fireworks Show', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Wings of Time.webp' },
+  { id: 'cable-car', cat: 'attraction', group: 'Sentosa', name: 'Singapore Cable Car', sub: 'Sentosa Line + Mount Faber Line', type: 'Two-way ride', tags: [], pax: ['Ticket'], img: 'asset/Singapore Cable Car.webp' },
+  { id: 'skyhelix', cat: 'attraction', group: 'Sentosa', name: 'SkyHelix Sentosa', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/SkyHelix Sentosa.webp' },
+  { id: 'skyslide', cat: 'attraction', group: 'Sentosa', name: 'SkyPark Skyslide', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/SkyPark Skyslide.webp' },
+  { id: 'sentosa-4d', cat: 'attraction', group: 'Sentosa', name: 'Sentosa 4D AdventureLand', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Sentosa 4D AdventureLand.webp' },
+  { id: 'ifly', cat: 'attraction', group: 'Sentosa', name: 'iFly Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/iFly Singapore.webp' },
+  { id: 'megazip', cat: 'attraction', group: 'Sentosa', name: 'Mega Adventure Park (MegaZip)', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Mega Adventure Park (MegaZip).webp' },
+  { id: 'headrock', cat: 'attraction', group: 'Sentosa', name: 'HeadRock VR', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/HeadRock VR.webp' },
+  { id: 'hyperdrive', cat: 'attraction', group: 'Sentosa', name: 'HyperDrive Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/HyperDrive Singapore.webp' },
+  { id: 'luge', cat: 'attraction', group: 'Sentosa', name: 'Skyline Luge Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak', 'Night'], img: 'asset/Skyline Luge Singapore.webp' },
+  { id: 'zoo', cat: 'attraction', group: 'Mandai Wildlife', name: 'Singapore Zoo (with Tram)', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'], img: 'asset/Singapore Zoo (with Tram).webp' },
+  { id: 'rainforest', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild Asia', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Rainforest Wild Asia.webp' },
+  { id: 'rainforest-adv', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild + Adventure', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Rainforest Wild Asia.webp' },
+  { id: 'river-wonders', cat: 'attraction', group: 'Mandai Wildlife', name: 'River Wonders', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/River Wonders.webp' },
+  { id: 'bird-paradise', cat: 'attraction', group: 'Mandai Wildlife', name: 'Bird Paradise', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Bird Paradise.webp' },
+  { id: 'night-safari', cat: 'attraction', group: 'Mandai Wildlife', name: 'Night Safari', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'], img: 'asset/Night Safari.webp' },
+  { id: 'curiosity-cove', cat: 'attraction', group: 'Mandai Wildlife', name: 'Curiosity Cove', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Curiosity Cove.webp' },
+  { id: 'gbtb', cat: 'attraction', group: 'Gardens by the Bay', name: 'Flower Dome + Cloud Forest', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Flower Dome.webp' },
+  { id: 'supertree', cat: 'attraction', group: 'Gardens by the Bay', name: 'Supertree Observatory', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Supertree Observatory.webp' },
+  { id: 'floral-fantasy', cat: 'attraction', group: 'Gardens by the Bay', name: 'Floral Fantasy', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Floral Fantasy.webp' },
+  { id: 'gbtb-shuttle', cat: 'attraction', group: 'Gardens by the Bay', name: 'Shuttle Bus Combo', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Shuttle Bus Combo.webp' },
+  { id: 'flyer', cat: 'attraction', group: 'Marina Bay', name: 'Singapore Flyer', sub: 'Marina Bay', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/singapore flyer.webp' },
+  { id: 'sky-dining', cat: 'attraction', group: 'Marina Bay', name: '165 Sky Dining by Singapore Flyer', sub: 'Marina Bay', type: 'Dining experience', tags: [], pax: ['Ticket'], img: 'asset/165 Sky Dining by Singapore Flyer.webp' },
+  { id: 'mbs-skypark', cat: 'attraction', group: 'Marina Bay', name: 'MBS SkyPark Observation Deck', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/MBS SkyPark Observation Deck.webp' },
+  { id: 'digital-light', cat: 'attraction', group: 'Marina Bay', name: 'Digital Light Canvas by teamLab', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Digital Light Canvas by teamLab.webp' },
+  { id: 'sampan', cat: 'attraction', group: 'Marina Bay', name: 'Sampan Rides', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Sampan Rides.webp' },
+  { id: 'artscience', cat: 'attraction', group: 'Marina Bay', name: 'ArtScience Museum', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/ArtScience Museum.webp' },
+  { id: 'teamlab', cat: 'attraction', group: 'Marina Bay', name: 'teamLab Future World', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/teamLab Future World.webp' },
+  { id: 'flesh-bones', cat: 'attraction', group: 'Marina Bay', name: 'Flesh and Bones: The Art of Anatomy', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Flesh and Bones The Art of Anatomy.webp' },
+  { id: 'into-ocean', cat: 'attraction', group: 'Marina Bay', name: 'Into the Ocean: Journey Beneath', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Into the Ocean Journey Beneath.webp' },
+  { id: 'nat-gallery', cat: 'attraction', group: 'Museums & Culture', name: 'National Gallery Singapore', sub: 'Civic District', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/National Gallery Singapore.webp' },
+  { id: 'art-museum', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Art Museum', sub: 'Tanjong Pagar', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Singapore Art Museum.webp' },
+  { id: 'illusions', cat: 'attraction', group: 'Museums & Culture', name: 'Museum of Illusions', sub: 'Sentosa', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Museum of Illusions.webp' },
+  { id: 'science-centre', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Science Centre', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Singapore Science Centre.webp' },
+  { id: 'kidstop', cat: 'attraction', group: 'Museums & Culture', name: 'Science Centre KidsSTOP', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Science Centre KidsSTOP.webp' },
+  { id: 'orchid-garden', cat: 'attraction', group: 'Museums & Culture', name: 'National Orchid Garden', sub: 'Botanic Gardens', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/National Orchid Garden.webp' },
+  { id: 'duck-tour', cat: 'attraction', group: 'Tours', name: 'DUCK Tour Singapore', sub: 'Suntec City', type: 'Tour', tags: [], pax: ['Ticket'], img: 'asset/DUCK Tour Singapore.webp' },
+  { id: 'dukw', cat: 'attraction', group: 'Tours', name: 'Captain Explorer DUKW Tours', sub: 'Marina Bay', type: 'Tour', tags: [], pax: ['Ticket'], img: 'asset/Captain Explorer DUKW Tours.webp' },
+  { id: 'funvee', cat: 'attraction', group: 'Tours', name: 'FunVee Open-Top Bus', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'], img: 'asset/FunVee Open-Top Bus.webp' },
+  { id: 'bigbus', cat: 'attraction', group: 'Tours', name: 'Big Bus Singapore', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'], img: 'asset/Big Bus Singapore.webp' },
+  { id: 'river-cruise', cat: 'attraction', group: 'Tours', name: 'Singapore River Cruise', sub: 'Clarke Quay', type: 'Cruise', tags: [], pax: ['Ticket'], img: 'asset/Singapore River Cruise.webp' },
+  { id: 'mb-cruise', cat: 'attraction', group: 'Tours', name: 'Marina Bay Sightseeing Cruise', sub: 'Marina Bay', type: 'Cruise', tags: [], pax: ['Ticket'], img: 'asset/Marina Bay Sightseeing Cruise.webp' },
+  { id: 'canopy-park', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Park', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Canopy Park.webp' },
+  { id: 'hedge-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Hedge Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Hedge Maze.webp' },
+  { id: 'mirror-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Mirror Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Mirror Maze.webp' },
+  { id: 'walking-net', cat: 'attraction', group: 'Jewel Changi', name: 'Walking Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Walking Net.webp' },
+  { id: 'bouncing-net', cat: 'attraction', group: 'Jewel Changi', name: 'Bouncing Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Bouncing Net.webp' },
+  { id: 'canopy-bridge', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Bridge', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Canopy Bridge.webp' },
+  { id: 'kiztopia', cat: 'attraction', group: 'Family & Kids', name: 'Kiztopia Marina Square', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Kiztopia Marina Square.webp' },
+  { id: 'tayo', cat: 'attraction', group: 'Family & Kids', name: 'Tayo Station', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Tayo Station.webp' },
+  { id: 'pororo', cat: 'attraction', group: 'Family & Kids', name: 'Pororo Park Singapore', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Pororo Park Singapore.webp' },
+  { id: 'superpark', cat: 'attraction', group: 'Family & Kids', name: 'SuperPark Singapore', sub: 'Suntec City', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/SuperPark Singapore.webp' },
+  { id: 'kidzania', cat: 'attraction', group: 'Family & Kids', name: 'KidZania Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/KidZania Singapore.webp' },
+  { id: 'minecraft', cat: 'attraction', group: 'Family & Kids', name: 'Minecraft Experience: Villager Rescue', sub: 'Singapore', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Minecraft ExperienceVillager Rescue.webp' },
+  { id: 'tussauds', cat: 'attraction', group: 'Entertainment', name: 'Madame Tussauds Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Madame Tussauds Singapore.webp' },
+  { id: 'ice-cream', cat: 'attraction', group: 'Entertainment', name: 'Museum of Ice Cream', sub: 'Dempsey', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Museum of Ice Cream.webp' },
+  { id: 'snow-city', cat: 'attraction', group: 'Entertainment', name: 'Snow City', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Snow City.webp' },
+  { id: 'wildwildwet', cat: 'attraction', group: 'Entertainment', name: 'Wild Wild Wet', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Wild Wild Wet.webp' },
+  { id: 'butterfly', cat: 'attraction', group: 'Entertainment', name: 'Butterfly Park & Insect Kingdom', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'], img: 'asset/Butterfly Park & Insect Kingdom.webp' },
 ];
 
 // REVIEWS — Sample data, replace with real Carousell reviews
@@ -903,14 +917,31 @@ function renderGrid() {
     card.onclick = () => openModal(t);
     card.onkeydown = (e) => { if (e.key === 'Enter') openModal(t); };
 
+    if (t.promo) card.className = 'card card-promo';
+
     const icon = GROUP_ICONS[t.group] || '\u{1F3AB}';
-    card.innerHTML =
-      '<div class="card-body">' +
-        '<div class="card-icon">' + icon + '</div>' +
+    let bodyHtml = '';
+    if (t.promo) {
+      bodyHtml =
+        '<div class="card-name">\u{1F6A0} ' + t.name + '</div>' +
+        '<div class="card-sub">\u{1F4CD} ' + t.sub + '</div>' +
+        '<div class="card-details">' +
+          '<div>\u{1F3AB}\uFE0F Minimum purchase: ' + t.promo.minQty + ' tickets</div>' +
+          '<div class="card-price">\u{1F525} ONLY ' + t.promo.price + ' each</div>' +
+          '<div>\u{1F4B0} Official price: ' + t.promo.original + ' each \u2014 <span class="card-save">SAVE ' + t.promo.save + '!</span></div>' +
+        '</div>';
+    } else {
+      bodyHtml =
         '<div class="card-name">' + t.name + '</div>' +
         '<div class="card-sub">' + t.sub + '</div>' +
         '<span class="card-type">' + t.type + '</span>' +
-        (t.tags.length ? '<div class="card-tags">' + t.tags.map(tag => '<span class="card-tag">' + tag + '</span>').join('') + '</div>' : '') +
+        (t.tags.length ? '<div class="card-tags">' + t.tags.map(tag => '<span class="card-tag">' + tag + '</span>').join('') + '</div>' : '');
+    }
+
+    card.innerHTML =
+      '<div class="card-content">' +
+        (t.img ? '<img class="card-hero" src="' + t.img + '" alt="' + t.name + '">' : '<div class="card-hero card-hero-placeholder">' + icon + '</div>') +
+        '<div class="card-body">' + bodyHtml + '</div>' +
       '</div>' +
       '<div class="card-stub">' +
         '<div class="card-notch-top"></div><div class="card-notch-bot"></div>' +
