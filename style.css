@@ -165,6 +165,49 @@ button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline
 }
 .jump-chip:hover{background:var(--cream-dark);color:var(--text)}
 
+/* ── POPULAR TICKETS ── */
+.popular-section{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:24px 0 20px;
+}
+.popular-inner{max-width:960px;margin:0 auto;padding:0 20px}
+.popular-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;
+}
+.popular-label{
+  font-family:Georgia,serif;font-size:18px;font-weight:400;color:var(--navy);
+}
+.popular-scroll{
+  display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+}
+.popular-scroll::-webkit-scrollbar{display:none}
+.popular-card{
+  flex-shrink:0;width:160px;scroll-snap-align:start;
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;cursor:pointer;
+  transition:all .25s;
+}
+.popular-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px)}
+.popular-img{
+  width:100%;height:100px;object-fit:cover;display:block;
+  background:var(--cream-dark);
+}
+.popular-img-placeholder{
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;background:var(--navy);color:var(--white);
+}
+.popular-body{padding:10px 12px}
+.popular-name{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:3px;color:var(--text)}
+.popular-cat{font-size:11px;color:var(--muted);margin-bottom:4px}
+.popular-price{
+  font-size:13px;font-weight:700;color:var(--green-dark);
+}
+.popular-disclaimer{
+  font-size:11px;color:var(--muted);margin-top:8px;
+  padding-top:8px;border-top:1px solid var(--border);
+}
+
 /* ── RESULT COUNT ── */
 .result-bar{max-width:960px;margin:0 auto;padding:10px 20px;font-size:13px;color:var(--muted)}
 .result-bar .no-results{
@@ -227,6 +270,10 @@ button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline
 .card-type{
   display:inline-block;font-size:11px;color:var(--blue);
   background:rgba(27,58,92,.06);padding:3px 10px;border-radius:var(--radius-pill);
+}
+.card-from-price{
+  display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);
+  margin-top:4px;margin-bottom:2px;
 }
 .card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
 .card-tag{
@@ -337,12 +384,24 @@ dialog.closing{animation:slideDown .25s ease forwards}
 .btn-wa:disabled{background:var(--border);color:var(--muted);cursor:not-allowed}
 .btn-wa-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
 
-/* ── TRUST ── */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
-.stat{text-align:center;background:var(--cream);padding:20px 12px;border-radius:12px}
-.stat-num{font-family:Georgia,serif;font-size:28px;font-weight:400;color:var(--navy)}
-.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.3px}
-.reviews-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+/* ── TRUST CHECKLIST ── */
+.trust-checklist{
+  display:grid;grid-template-columns:1fr;gap:0;
+  margin-bottom:28px;
+}
+.trust-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+}
+.trust-item:last-child{border-bottom:none}
+.trust-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:rgba(37,211,102,.1);color:var(--green-dark);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;
+}
+.trust-item strong{font-size:14px;color:var(--text)}
 .reviews{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
 .reviews::-webkit-scrollbar{display:none}
 .review{
@@ -457,6 +516,8 @@ dialog.closing{animation:slideDown .25s ease forwards}
   .card,.skeleton-card{margin-bottom:0}
   .hero{min-height:440px}
   .hero h1{font-size:40px}
+  .popular-card{width:180px}
+  .trust-checklist{grid-template-columns:1fr 1fr}
   dialog{border-radius:16px;bottom:auto;top:50%;transform:translate(-50%,-50%);max-height:80vh}
   dialog[open]{animation:fadeIn .25s ease}
   dialog.closing{animation:fadeOut .2s ease forwards}
@@ -468,6 +529,8 @@ dialog.closing{animation:slideDown .25s ease forwards}
   .hero{min-height:480px}
   .hero h1{font-size:46px}
   .hero-content{padding:72px 20px 80px}
+  .popular-card{width:190px}
+  .popular-img{height:120px}
 }
 @media(max-width:360px){
   .hero h1{font-size:26px}
