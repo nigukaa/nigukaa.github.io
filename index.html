@@ -90,9 +90,7 @@ body{
 img{max-width:100%;display:block}
 button{cursor:pointer;font:inherit;border:none;background:none}
 a{color:inherit;text-decoration:none}
-input[type="date"],input[type="number"]{font:inherit}
-
-/* Serif for headings */
+input[type="date"],input[type="number"],input[type="search"]{font:inherit}
 h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 
 /* ── HEADER ── */
@@ -115,46 +113,35 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   color:var(--white);padding:0;text-align:center;
   min-height:400px;display:flex;align-items:center;justify-content:center;
 }
-.hero-slides{
-  position:absolute;inset:0;z-index:0;
-}
+.hero-slides{position:absolute;inset:0;z-index:0}
 .hero-slide{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  opacity:0;transition:opacity 1.2s ease;
-  will-change:opacity;
+  opacity:0;transition:opacity 1.2s ease;will-change:opacity;
 }
 .hero-slide.active{opacity:1}
 .hero-overlay{
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(to bottom,rgba(13,27,42,.72) 0%,rgba(13,27,42,.85) 100%);
 }
-.hero-content{
-  position:relative;z-index:2;
-  padding:56px 20px 64px;max-width:560px;
-}
+.hero-content{position:relative;z-index:2;padding:56px 20px 64px;max-width:560px}
 .hero-badge{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
   padding:6px 16px;border-radius:var(--radius-pill);
-  font-size:12px;letter-spacing:.5px;margin-bottom:24px;
-  backdrop-filter:blur(4px);
+  font-size:12px;letter-spacing:.5px;margin-bottom:24px;backdrop-filter:blur(4px);
 }
 .hero h1{
   font-family:Georgia,serif;font-size:32px;font-weight:400;
-  line-height:1.25;margin-bottom:16px;
-  text-shadow:0 2px 12px rgba(0,0,0,.3);
+  line-height:1.25;margin-bottom:16px;text-shadow:0 2px 12px rgba(0,0,0,.3);
 }
 .hero h1 em{font-style:italic;color:var(--accent)}
-.hero p{
-  font-size:15px;opacity:.8;max-width:420px;margin:0 auto 28px;line-height:1.7;
-}
+.hero p{font-size:15px;opacity:.8;max-width:420px;margin:0 auto 28px;line-height:1.7}
 .hero-cta{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--green);color:var(--white);
   padding:12px 28px;border-radius:var(--radius-pill);
-  font-size:14px;font-weight:600;letter-spacing:.3px;
-  transition:background .2s;
+  font-size:14px;font-weight:600;letter-spacing:.3px;transition:background .2s;
 }
 .hero-cta:hover{background:var(--green-dark)}
 .hero-trust{
@@ -173,53 +160,81 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 }
 .hero-dot.active{background:var(--white);width:24px;border-radius:4px}
 
-/* Focus visible for keyboard nav */
-:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;
-}
-button:focus-visible,.card:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;
-}
+/* Focus visible */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ── SECTION WRAPPER ── */
+/* ── SECTION ── */
 .section{padding:48px 20px;max-width:960px;margin:0 auto}
-.section-label{
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:8px;
-}
-.section-title{
-  font-family:Georgia,serif;font-size:26px;font-weight:400;
-  margin-bottom:8px;line-height:1.3;
-}
+.section-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.section-title{font-family:Georgia,serif;font-size:26px;font-weight:400;margin-bottom:8px;line-height:1.3}
 .section-title em{font-style:italic;color:var(--blue)}
 .section-desc{font-size:14px;color:var(--muted);margin-bottom:28px;max-width:480px}
 
-/* ── FILTERS ── */
-.filters-wrap{
+/* ── STICKY TOOLBAR (filters + search + jump) ── */
+.toolbar{
   position:sticky;top:60px;z-index:90;background:var(--cream);
-  border-bottom:1px solid var(--border);
-  padding:12px 0;
+  border-bottom:1px solid var(--border);padding:10px 0 0;
 }
+.toolbar-inner{max-width:960px;margin:0 auto;padding:0 20px}
+.toolbar-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+
+/* Search */
+.search-wrap{
+  flex:1;position:relative;
+}
+.search-wrap input{
+  width:100%;padding:9px 14px 9px 36px;
+  border:1px solid var(--border);border-radius:var(--radius-pill);
+  font-size:13px;background:var(--white);color:var(--text);
+  transition:border-color .2s;
+}
+.search-wrap input:focus{outline:none;border-color:var(--navy)}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:14px;color:var(--muted);pointer-events:none;
+}
+.search-clear{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-size:16px;color:var(--muted);padding:2px 4px;
+  display:none;line-height:1;
+}
+.search-clear.visible{display:block}
+
+/* Filters row */
 .filters{
-  max-width:960px;margin:0 auto;
-  padding:0 20px;display:flex;gap:8px;
+  display:flex;gap:8px;
   overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
 .filters::-webkit-scrollbar{display:none}
 .filter-btn{
-  padding:8px 18px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
+  padding:7px 16px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
   white-space:nowrap;background:var(--white);color:var(--muted);
   border:1px solid var(--border);transition:all .2s;flex-shrink:0;
 }
-.filter-btn.active{
-  background:var(--navy);color:var(--white);border-color:var(--navy);
-}
+.filter-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .filter-btn .count{font-size:11px;opacity:.6;margin-left:3px}
 
+/* Group jump chips */
+.jump-chips{
+  display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;
+  -webkit-overflow-scrolling:touch;
+}
+.jump-chips::-webkit-scrollbar{display:none}
+.jump-chip{
+  padding:4px 12px;border-radius:var(--radius-pill);font-size:11px;font-weight:600;
+  white-space:nowrap;background:transparent;color:var(--muted);
+  border:1px solid var(--border);transition:all .2s;flex-shrink:0;
+  letter-spacing:.2px;
+}
+.jump-chip:hover{background:var(--cream-dark);color:var(--text)}
+
 /* ── RESULT COUNT ── */
-.result-bar{
-  max-width:960px;margin:0 auto;padding:10px 20px;
-  font-size:13px;color:var(--muted);
+.result-bar{max-width:960px;margin:0 auto;padding:10px 20px;font-size:13px;color:var(--muted)}
+.result-bar .no-results{
+  text-align:center;padding:40px 20px;
+  font-size:15px;color:var(--muted);
 }
 
 /* ── GROUP HEADERS ── */
@@ -227,10 +242,29 @@ button:focus-visible,.card:focus-visible{
   padding:28px 0 10px;
   font-family:Georgia,serif;font-size:18px;font-weight:400;
   color:var(--navy);display:flex;align-items:center;gap:12px;
+  scroll-margin-top:160px;
 }
-.group-header::after{
-  content:'';flex:1;height:1px;background:var(--border);
+.group-header::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── SKELETON CARDS ── */
+.skeleton-card{
+  background:var(--white);border-radius:12px;
+  margin-bottom:12px;display:flex;
+  border:1px solid var(--border);overflow:hidden;
+  animation:pulse 1.5s ease-in-out infinite;
 }
+.skeleton-body{flex:1;padding:18px 16px}
+.skeleton-line{
+  background:var(--cream-dark);border-radius:4px;
+  margin-bottom:8px;
+}
+.skeleton-line.w70{width:70%;height:14px}
+.skeleton-line.w50{width:50%;height:12px}
+.skeleton-line.w30{width:30%;height:20px;border-radius:10px}
+.skeleton-stub{
+  width:80px;flex-shrink:0;background:var(--cream-dark);
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 /* ── PRODUCT CARDS ── */
 .grid{max-width:960px;margin:0 auto;padding:0 20px 32px}
@@ -242,11 +276,11 @@ button:focus-visible,.card:focus-visible{
   cursor:pointer;transition:all .25s;
   border:1px solid var(--border);
 }
-.card:hover{
-  box-shadow:0 6px 24px rgba(0,0,0,.08);
-  transform:translateY(-2px);
+.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.card-icon{
+  font-size:22px;margin-bottom:4px;line-height:1;
 }
-.card-body{flex:1;padding:18px 16px;min-width:0}
+.card-body{flex:1;padding:16px 14px;min-width:0}
 .card-name{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:3px}
 .card-sub{font-size:12px;color:var(--muted);margin-bottom:6px}
 .card-type{
@@ -265,8 +299,7 @@ button:focus-visible,.card:focus-visible{
   width:80px;flex-shrink:0;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:var(--navy);color:var(--white);
-  position:relative;text-align:center;padding:12px 8px;
-  transition:background .25s;
+  position:relative;text-align:center;padding:12px 8px;transition:background .25s;
 }
 .card:hover .card-stub{background:var(--green)}
 .card-stub::before{
@@ -290,9 +323,11 @@ dialog{
   max-height:85vh;overflow-y:auto;
   box-shadow:0 -4px 40px rgba(0,0,0,.2);
 }
-dialog::backdrop{background:rgba(13,27,42,.6)}
+dialog::backdrop{background:rgba(13,27,42,.6);transition:opacity .3s}
 dialog[open]{animation:slideUp .3s ease}
+dialog.closing{animation:slideDown .25s ease forwards}
 @keyframes slideUp{from{transform:translateX(-50%) translateY(100%)}to{transform:translateX(-50%) translateY(0)}}
+@keyframes slideDown{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(100%)}}
 .modal-head{
   padding:20px 20px 16px;border-bottom:1px solid var(--border);
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -327,26 +362,20 @@ dialog[open]{animation:slideUp .3s ease}
 .stepper button{
   width:38px;height:38px;font-size:18px;font-weight:600;
   color:var(--navy);background:var(--cream);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .15s;
+  display:flex;align-items:center;justify-content:center;transition:background .15s;
 }
 .stepper button:hover{background:var(--cream-dark)}
 .stepper .qty{
   width:42px;text-align:center;font-size:15px;font-weight:700;
-  border-left:1px solid var(--border);border-right:1px solid var(--border);
-  line-height:38px;
+  border-left:1px solid var(--border);border-right:1px solid var(--border);line-height:38px;
 }
 
 /* Form */
 .form-row{margin-bottom:14px}
-.form-row label{
-  display:block;font-size:13px;font-weight:600;
-  color:var(--text);margin-bottom:5px;
-}
+.form-row label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px}
 .form-row input{
   width:100%;padding:11px 14px;border:1px solid var(--border);
-  border-radius:var(--radius);font-size:14px;background:var(--white);
-  transition:border-color .2s;
+  border-radius:var(--radius);font-size:14px;background:var(--white);transition:border-color .2s;
 }
 .form-row input:focus{outline:none;border-color:var(--navy)}
 
@@ -355,33 +384,18 @@ dialog[open]{animation:slideUp .3s ease}
   display:flex;width:100%;padding:14px;margin-top:20px;
   background:var(--green);color:var(--white);
   font-size:15px;font-weight:700;border-radius:var(--radius-pill);
-  align-items:center;justify-content:center;gap:8px;
-  transition:background .2s;letter-spacing:.3px;
+  align-items:center;justify-content:center;gap:8px;transition:background .2s;letter-spacing:.3px;
 }
 .btn-wa:hover{background:var(--green-dark)}
 .btn-wa:disabled{background:var(--border);color:var(--muted);cursor:not-allowed}
-.btn-wa-note{
-  text-align:center;font-size:11px;color:var(--muted);margin-top:8px;
-}
+.btn-wa-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
 
-/* ── TRUST SECTION ── */
-.trust-bg{background:var(--white)}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
-  margin-bottom:28px;
-}
-.stat{
-  text-align:center;background:var(--cream);
-  padding:20px 12px;border-radius:12px;
-}
+/* ── TRUST ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.stat{text-align:center;background:var(--cream);padding:20px 12px;border-radius:12px}
 .stat-num{font-family:Georgia,serif;font-size:28px;font-weight:400;color:var(--navy)}
 .stat-lbl{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.3px}
-
-/* Reviews */
-.reviews-label{
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:14px;
-}
+.reviews-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .reviews{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
 .reviews::-webkit-scrollbar{display:none}
 .review{
@@ -392,7 +406,6 @@ dialog[open]{animation:slideUp .3s ease}
 .review-text{font-size:13px;line-height:1.7;margin-bottom:12px;color:var(--text)}
 .review-meta{font-size:12px;color:var(--muted)}
 .review-meta strong{color:var(--text)}
-
 .payment-methods{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .payment-methods span{
   background:var(--cream);border:1px solid var(--border);
@@ -401,16 +414,14 @@ dialog[open]{animation:slideUp .3s ease}
 .warning-box{
   background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2);
   border-left:3px solid var(--accent);
-  padding:14px 16px;border-radius:var(--radius);font-size:13px;margin-top:20px;
-  line-height:1.6;
+  padding:14px 16px;border-radius:var(--radius);font-size:13px;margin-top:20px;line-height:1.6;
 }
 
 /* ── HOW TO ORDER ── */
 .steps{display:flex;flex-direction:column;gap:14px}
 .step{
   display:flex;gap:16px;align-items:flex-start;
-  background:var(--white);padding:18px;border-radius:12px;
-  border:1px solid var(--border);
+  background:var(--white);padding:18px;border-radius:12px;border:1px solid var(--border);
 }
 .step-num{
   width:36px;height:36px;border-radius:50%;flex-shrink:0;
@@ -422,10 +433,7 @@ dialog[open]{animation:slideUp .3s ease}
 .step-text p{font-size:13px;color:var(--muted);line-height:1.6}
 
 /* ── FAQ ── */
-.faq details{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:12px;margin-bottom:8px;
-}
+.faq details{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:8px}
 .faq summary{
   padding:16px 18px;font-size:14px;font-weight:600;cursor:pointer;
   list-style:none;display:flex;justify-content:space-between;align-items:center;
@@ -436,15 +444,8 @@ dialog[open]{animation:slideUp .3s ease}
 .faq .answer{padding:0 18px 16px;font-size:13px;color:var(--muted);line-height:1.7}
 
 /* ── CTA BANNER ── */
-.cta-banner{
-  background:var(--navy);color:var(--white);
-  padding:40px 20px;text-align:center;
-  margin:0;
-}
-.cta-banner h2{
-  font-family:Georgia,serif;font-size:24px;font-weight:400;
-  margin-bottom:8px;line-height:1.3;
-}
+.cta-banner{background:var(--navy);color:var(--white);padding:40px 20px;text-align:center}
+.cta-banner h2{font-family:Georgia,serif;font-size:24px;font-weight:400;margin-bottom:8px;line-height:1.3}
 .cta-banner h2 em{font-style:italic;color:var(--accent)}
 .cta-banner p{font-size:14px;opacity:.6;margin-bottom:20px}
 .cta-banner a{
@@ -458,12 +459,10 @@ dialog[open]{animation:slideUp .3s ease}
 /* ── FOOTER ── */
 .footer{
   background:var(--navy);color:var(--white);
-  padding:32px 20px;
-  border-top:1px solid rgba(255,255,255,.06);
+  padding:32px 20px;border-top:1px solid rgba(255,255,255,.06);
 }
 .footer-inner{
-  max-width:960px;margin:0 auto;
-  display:flex;flex-wrap:wrap;gap:24px;
+  max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;
   justify-content:space-between;align-items:flex-start;
 }
 .footer-brand{display:flex;align-items:center;gap:10px}
@@ -475,32 +474,46 @@ dialog[open]{animation:slideUp .3s ease}
 .footer-links a:hover{opacity:1}
 .footer-disc{
   width:100%;font-size:11px;opacity:.35;margin-top:16px;
-  padding-top:16px;border-top:1px solid rgba(255,255,255,.08);
-  line-height:1.6;
+  padding-top:16px;border-top:1px solid rgba(255,255,255,.08);line-height:1.6;
 }
 
-/* ── STICKY WA BAR ── */
+/* ── STICKY WA BAR (auto-hide) ── */
 .wa-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:var(--green);
+  background:var(--green);transition:transform .3s ease;
 }
+.wa-bar.bar-hidden{transform:translateY(100%)}
 .wa-bar a{
   display:flex;align-items:center;justify-content:center;gap:8px;
-  color:var(--white);font-size:15px;font-weight:700;padding:16px;
-  letter-spacing:.3px;
+  color:var(--white);font-size:15px;font-weight:700;padding:16px;letter-spacing:.3px;
 }
 .wa-bar a:hover{background:var(--green-dark)}
+
+/* ── SCROLL TO TOP ── */
+.scroll-top{
+  position:fixed;bottom:74px;right:16px;z-index:99;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--navy);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;box-shadow:0 2px 12px rgba(0,0,0,.2);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .3s,transform .3s;pointer-events:none;
+}
+.scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.scroll-top:hover{background:var(--blue)}
 
 /* ── RESPONSIVE ── */
 @media(min-width:540px){
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
   .grid .group-header{grid-column:1/-1}
-  .card{margin-bottom:0}
+  .card,.skeleton-card{margin-bottom:0}
   .hero{min-height:440px}
   .hero h1{font-size:40px}
   dialog{border-radius:16px;bottom:auto;top:50%;transform:translate(-50%,-50%);max-height:80vh}
   dialog[open]{animation:fadeIn .25s ease}
+  dialog.closing{animation:fadeOut .2s ease forwards}
   @keyframes fadeIn{from{opacity:0;transform:translate(-50%,-50%) scale(.96)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes fadeOut{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-50%) scale(.96)}}
 }
 @media(min-width:900px){
   .grid{grid-template-columns:repeat(3,1fr)}
@@ -508,8 +521,6 @@ dialog[open]{animation:slideUp .3s ease}
   .hero h1{font-size:46px}
   .hero-content{padding:72px 20px 80px}
 }
-
-/* Small screen tweaks */
 @media(max-width:360px){
   .hero h1{font-size:26px}
   .hero-badge{font-size:11px;padding:5px 12px}
@@ -564,16 +575,28 @@ dialog[open]{animation:slideUp .3s ease}
   </div>
 </section>
 
-<!-- FILTERS -->
-<div class="filters-wrap">
-  <div class="filters" id="filters" role="navigation" aria-label="Filter categories"></div>
+<!-- STICKY TOOLBAR -->
+<div class="toolbar" id="toolbar">
+  <div class="toolbar-inner">
+    <div class="toolbar-row">
+      <div class="search-wrap">
+        <span class="search-icon">&#128269;</span>
+        <input type="search" id="searchInput" placeholder="Search tickets..." autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
+      </div>
+    </div>
+    <div class="toolbar-row filters" id="filters"></div>
+    <div class="jump-chips" id="jumpChips"></div>
+  </div>
 </div>
 
 <!-- RESULT COUNT -->
 <div class="result-bar"><span id="resultCount"></span></div>
 
 <!-- PRODUCT GRID -->
-<main class="grid" id="productGrid"></main>
+<main class="grid" id="productGrid">
+  <!-- Skeleton placeholders rendered by JS on load -->
+</main>
 
 <!-- TRUST -->
 <section class="section" style="background:var(--white);padding-top:48px;padding-bottom:48px">
@@ -588,12 +611,10 @@ dialog[open]{animation:slideUp .3s ease}
   </div>
   <div class="reviews-label">Customer Reviews</div>
   <div class="reviews" id="reviewsContainer"></div>
-
   <h3 style="font-size:14px;font-weight:700;margin:28px 0 10px">Payment Methods</h3>
   <div class="payment-methods">
     <span>PayNow</span><span>Bank Transfer</span><span>Carousell (CarouBuy)</span>
   </div>
-
   <div class="warning-box">
     <strong>Official Niguka number:</strong> +65 8404 2000<br>
     Only order through this number or our official accounts. Beware of scams.
@@ -606,18 +627,9 @@ dialog[open]{animation:slideUp .3s ease}
   <h2 class="section-title">How to <em>Order</em></h2>
   <p class="section-desc">Three simple steps to get your tickets.</p>
   <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-text"><h4>Pick a ticket</h4><p>Browse our catalogue and tap the ticket you want. Fill in the number of people and your preferred date.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-text"><h4>Enquire on WhatsApp</h4><p>Your enquiry is auto-formatted and sent to our WhatsApp. We'll reply with the best available price.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text"><h4>Confirm &amp; Pay</h4><p>We confirm availability and pricing. Pay via PayNow or bank transfer. E-tickets sent via chat.</p></div>
-    </div>
+    <div class="step"><div class="step-num">1</div><div class="step-text"><h4>Pick a ticket</h4><p>Browse our catalogue and tap the ticket you want. Fill in the number of people and your preferred date.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text"><h4>Enquire on WhatsApp</h4><p>Your enquiry is auto-formatted and sent to our WhatsApp. We'll reply with the best available price.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><h4>Confirm &amp; Pay</h4><p>We confirm availability and pricing. Pay via PayNow or bank transfer. E-tickets sent via chat.</p></div></div>
   </div>
 </section>
 
@@ -625,26 +637,11 @@ dialog[open]{animation:slideUp .3s ease}
 <section class="section faq" style="background:var(--white);padding-top:48px;padding-bottom:48px">
   <div class="section-label">Support</div>
   <h2 class="section-title" style="margin-bottom:20px">Frequently <em>Asked</em></h2>
-  <details>
-    <summary>Are the tickets legitimate?</summary>
-    <div class="answer">Yes, all tickets are official and valid. We're a registered reseller — check our Carousell reviews for peace of mind.</div>
-  </details>
-  <details>
-    <summary>How do I pay?</summary>
-    <div class="answer">We accept PayNow and bank transfer. For extra security, you can also purchase through Carousell (CarouBuy). Payment details are shared after we confirm your order.</div>
-  </details>
-  <details>
-    <summary>How fast will I receive the tickets?</summary>
-    <div class="answer">E-tickets are sent via WhatsApp after payment is confirmed, usually within a few hours during business hours.</div>
-  </details>
-  <details>
-    <summary>Can I cancel or get a refund?</summary>
-    <div class="answer">Cancellation policies vary by ticket type. Please check with us on WhatsApp before ordering.</div>
-  </details>
-  <details>
-    <summary>Why aren't prices listed on the website?</summary>
-    <div class="answer">Prices change frequently based on promotions and availability. Message us on WhatsApp for the latest and best rates — we'll always try to get you the best deal.</div>
-  </details>
+  <details><summary>Are the tickets legitimate?</summary><div class="answer">Yes, all tickets are official and valid. We're a registered reseller — check our Carousell reviews for peace of mind.</div></details>
+  <details><summary>How do I pay?</summary><div class="answer">We accept PayNow and bank transfer. For extra security, you can also purchase through Carousell (CarouBuy). Payment details are shared after we confirm your order.</div></details>
+  <details><summary>How fast will I receive the tickets?</summary><div class="answer">E-tickets are sent via WhatsApp after payment is confirmed, usually within a few hours during business hours.</div></details>
+  <details><summary>Can I cancel or get a refund?</summary><div class="answer">Cancellation policies vary by ticket type. Please check with us on WhatsApp before ordering.</div></details>
+  <details><summary>Why aren't prices listed on the website?</summary><div class="answer">Prices change frequently based on promotions and availability. Message us on WhatsApp for the latest and best rates — we'll always try to get you the best deal.</div></details>
 </section>
 
 <!-- CTA BANNER -->
@@ -660,10 +657,7 @@ dialog[open]{animation:slideUp .3s ease}
     <div>
       <div class="footer-brand">
         <img src="niguka logo.jpeg" alt="Niguka" class="footer-logo">
-        <div>
-          <div class="footer-brand-text">Niguka</div>
-          <div class="footer-brand-sub">Singapore Ticket Reseller</div>
-        </div>
+        <div><div class="footer-brand-text">Niguka</div><div class="footer-brand-sub">Singapore Ticket Reseller</div></div>
       </div>
     </div>
     <div class="footer-links">
@@ -678,9 +672,12 @@ dialog[open]{animation:slideUp .3s ease}
 </footer>
 
 <!-- STICKY WHATSAPP BAR -->
-<div class="wa-bar">
+<div class="wa-bar" id="waBar">
   <a href="https://wa.me/6584042000" target="_blank" rel="noopener">&#128172; Chat on WhatsApp</a>
 </div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">&#8593;</button>
 
 <!-- ENQUIRY MODAL -->
 <dialog id="modal">
@@ -692,456 +689,97 @@ dialog[open]{animation:slideUp .3s ease}
 </dialog>
 
 <script>
-// ============================================================
-//  SETTINGS — Edit here
-// ============================================================
 const WA = '6584042000';
 const TG = 'Hunaa22';
 const IG = 'niguka12';
 
-// ============================================================
-//  TICKET DATA — Edit here to add/remove tickets
-//  Fields:
-//    id    : unique code (lowercase, no spaces)
-//    cat   : "ferry" or "attraction"
-//    group : display group name
-//    name  : ticket name shown on card
-//    sub   : route or location
-//    type  : ticket type ("Return trip" / "Admission" / etc)
-//    tags  : extra labels, e.g. ["Group promo 4+"]
-//    pax   : passenger/ticket categories for the enquiry form
-// ============================================================
+// Group icons — emoji per group for card thumbnails
+const GROUP_ICONS = {
+  'Ferry': '\u26F4\uFE0F',
+  'Sentosa': '\u26F1\uFE0F',
+  'Mandai Wildlife': '\u{1F981}',
+  'Gardens by the Bay': '\u{1F33A}',
+  'Marina Bay': '\u{1F3D9}\uFE0F',
+  'Museums & Culture': '\u{1F3DB}\uFE0F',
+  'Tours': '\u{1F68D}',
+  'Jewel Changi': '\u2728',
+  'Family & Kids': '\u{1F3A0}',
+  'Entertainment': '\u{1F3AD}',
+};
 
 const TICKETS = [
-
-  // ── FERRY ─────────────────────────────────────────────────
-  { id: 'majestic', cat: 'ferry', group: 'Ferry',
-    name: 'Majestic Fast Ferry',
-    sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip',
-    tags: ['Group promo 4+'],
-    pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-
-  { id: 'sindo', cat: 'ferry', group: 'Ferry',
-    name: 'Sindo Ferry',
-    sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip',
-    tags: ['Group promo 4+'],
-    pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-
-  { id: 'horizon', cat: 'ferry', group: 'Ferry',
-    name: 'Horizon Ferry',
-    sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return / One-way',
-    tags: [],
-    pax: ['Return trip', 'One-way'] },
-
-  { id: 'horizon-group', cat: 'ferry', group: 'Ferry',
-    name: 'Horizon Ferry (Group)',
-    sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return trip',
-    tags: ['Min. 5 pax'],
-    pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-
-  { id: 'batamfast', cat: 'ferry', group: 'Ferry',
-    name: 'Batam Fast Ferry',
-    sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip',
-    tags: [],
-    pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
-
-  // ── SENTOSA ───────────────────────────────────────────────
-  { id: 'uss', cat: 'attraction', group: 'Sentosa',
-    name: 'Universal Studios Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Adult', 'Child'] },
-
-  { id: 'adventure-cove', cat: 'attraction', group: 'Sentosa',
-    name: 'Adventure Cove Waterpark',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'harry-potter', cat: 'attraction', group: 'Sentosa',
-    name: 'Harry Potter: Visions of Magic',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Off-Peak', 'Peak', 'Super-Peak'] },
-
-  { id: 'oceanarium', cat: 'attraction', group: 'Sentosa',
-    name: 'Singapore Oceanarium',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'marine-mammal', cat: 'attraction', group: 'Sentosa',
-    name: 'Marine Mammal Habitat',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'wot', cat: 'attraction', group: 'Sentosa',
-    name: 'Wings of Time',
-    sub: 'Sentosa, Fireworks Show', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'cable-car', cat: 'attraction', group: 'Sentosa',
-    name: 'Singapore Cable Car',
-    sub: 'Sentosa Line + Mount Faber Line', type: 'Two-way ride',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'skyhelix', cat: 'attraction', group: 'Sentosa',
-    name: 'SkyHelix Sentosa',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'skyslide', cat: 'attraction', group: 'Sentosa',
-    name: 'SkyPark Skyslide',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'sentosa-4d', cat: 'attraction', group: 'Sentosa',
-    name: 'Sentosa 4D AdventureLand',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'ifly', cat: 'attraction', group: 'Sentosa',
-    name: 'iFly Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'megazip', cat: 'attraction', group: 'Sentosa',
-    name: 'Mega Adventure Park (MegaZip)',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'headrock', cat: 'attraction', group: 'Sentosa',
-    name: 'HeadRock VR',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'hyperdrive', cat: 'attraction', group: 'Sentosa',
-    name: 'HyperDrive Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'luge', cat: 'attraction', group: 'Sentosa',
-    name: 'Skyline Luge Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Off-Peak', 'Peak', 'Super-Peak', 'Night'] },
-
-  // ── MANDAI WILDLIFE ───────────────────────────────────────
-  { id: 'zoo', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Singapore Zoo (with Tram)',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Adult', 'Child'] },
-
-  { id: 'rainforest', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Rainforest Wild Asia',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'rainforest-adv', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Rainforest Wild + Adventure',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'river-wonders', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'River Wonders',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'bird-paradise', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Bird Paradise',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'night-safari', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Night Safari',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Adult', 'Child'] },
-
-  { id: 'curiosity-cove', cat: 'attraction', group: 'Mandai Wildlife',
-    name: 'Curiosity Cove',
-    sub: 'Mandai', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── GARDENS BY THE BAY ────────────────────────────────────
-  { id: 'gbtb', cat: 'attraction', group: 'Gardens by the Bay',
-    name: 'Flower Dome + Cloud Forest',
-    sub: 'Gardens by the Bay', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'supertree', cat: 'attraction', group: 'Gardens by the Bay',
-    name: 'Supertree Observatory',
-    sub: 'Gardens by the Bay', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'floral-fantasy', cat: 'attraction', group: 'Gardens by the Bay',
-    name: 'Floral Fantasy',
-    sub: 'Gardens by the Bay', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'gbtb-shuttle', cat: 'attraction', group: 'Gardens by the Bay',
-    name: 'Shuttle Bus Combo',
-    sub: 'Gardens by the Bay', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── MARINA BAY ────────────────────────────────────────────
-  { id: 'flyer', cat: 'attraction', group: 'Marina Bay',
-    name: 'Singapore Flyer',
-    sub: 'Marina Bay', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'sky-dining', cat: 'attraction', group: 'Marina Bay',
-    name: '165 Sky Dining by Singapore Flyer',
-    sub: 'Marina Bay', type: 'Dining experience',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'mbs-skypark', cat: 'attraction', group: 'Marina Bay',
-    name: 'MBS SkyPark Observation Deck',
-    sub: 'Marina Bay Sands', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'digital-light', cat: 'attraction', group: 'Marina Bay',
-    name: 'Digital Light Canvas by teamLab',
-    sub: 'Marina Bay Sands', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'sampan', cat: 'attraction', group: 'Marina Bay',
-    name: 'Sampan Rides',
-    sub: 'Marina Bay Sands', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'artscience', cat: 'attraction', group: 'Marina Bay',
-    name: 'ArtScience Museum',
-    sub: 'Marina Bay Sands', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'teamlab', cat: 'attraction', group: 'Marina Bay',
-    name: 'teamLab Future World',
-    sub: 'ArtScience Museum', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'flesh-bones', cat: 'attraction', group: 'Marina Bay',
-    name: 'Flesh and Bones: The Art of Anatomy',
-    sub: 'ArtScience Museum', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'into-ocean', cat: 'attraction', group: 'Marina Bay',
-    name: 'Into the Ocean: Journey Beneath',
-    sub: 'ArtScience Museum', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── MUSEUMS & CULTURE ─────────────────────────────────────
-  { id: 'nat-gallery', cat: 'attraction', group: 'Museums & Culture',
-    name: 'National Gallery Singapore',
-    sub: 'Civic District', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'art-museum', cat: 'attraction', group: 'Museums & Culture',
-    name: 'Singapore Art Museum',
-    sub: 'Tanjong Pagar', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'illusions', cat: 'attraction', group: 'Museums & Culture',
-    name: 'Museum of Illusions',
-    sub: 'Sentosa', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'science-centre', cat: 'attraction', group: 'Museums & Culture',
-    name: 'Singapore Science Centre',
-    sub: 'Jurong', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'kidstop', cat: 'attraction', group: 'Museums & Culture',
-    name: 'Science Centre KidsSTOP',
-    sub: 'Jurong', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'orchid-garden', cat: 'attraction', group: 'Museums & Culture',
-    name: 'National Orchid Garden',
-    sub: 'Botanic Gardens', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── TOURS ─────────────────────────────────────────────────
-  { id: 'duck-tour', cat: 'attraction', group: 'Tours',
-    name: 'DUCK Tour Singapore',
-    sub: 'Suntec City', type: 'Tour',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'dukw', cat: 'attraction', group: 'Tours',
-    name: 'Captain Explorer DUKW Tours',
-    sub: 'Marina Bay', type: 'Tour',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'funvee', cat: 'attraction', group: 'Tours',
-    name: 'FunVee Open-Top Bus',
-    sub: 'Hop-on Hop-off', type: 'Tour',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'bigbus', cat: 'attraction', group: 'Tours',
-    name: 'Big Bus Singapore',
-    sub: 'Hop-on Hop-off', type: 'Tour',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'river-cruise', cat: 'attraction', group: 'Tours',
-    name: 'Singapore River Cruise',
-    sub: 'Clarke Quay', type: 'Cruise',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'mb-cruise', cat: 'attraction', group: 'Tours',
-    name: 'Marina Bay Sightseeing Cruise',
-    sub: 'Marina Bay', type: 'Cruise',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── JEWEL CHANGI ──────────────────────────────────────────
-  { id: 'canopy-park', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Canopy Park',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'hedge-maze', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Hedge Maze',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'mirror-maze', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Mirror Maze',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'walking-net', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Walking Net',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'bouncing-net', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Bouncing Net',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'canopy-bridge', cat: 'attraction', group: 'Jewel Changi',
-    name: 'Canopy Bridge',
-    sub: 'Jewel Changi Airport', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── FAMILY & KIDS ─────────────────────────────────────────
-  { id: 'kiztopia', cat: 'attraction', group: 'Family & Kids',
-    name: 'Kiztopia Marina Square',
-    sub: 'Marina Square', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'tayo', cat: 'attraction', group: 'Family & Kids',
-    name: 'Tayo Station',
-    sub: 'Downtown East', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'pororo', cat: 'attraction', group: 'Family & Kids',
-    name: 'Pororo Park Singapore',
-    sub: 'Marina Square', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'superpark', cat: 'attraction', group: 'Family & Kids',
-    name: 'SuperPark Singapore',
-    sub: 'Suntec City', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'kidzania', cat: 'attraction', group: 'Family & Kids',
-    name: 'KidZania Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'minecraft', cat: 'attraction', group: 'Family & Kids',
-    name: 'Minecraft Experience: Villager Rescue',
-    sub: 'Singapore', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  // ── ENTERTAINMENT ─────────────────────────────────────────
-  { id: 'tussauds', cat: 'attraction', group: 'Entertainment',
-    name: 'Madame Tussauds Singapore',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'ice-cream', cat: 'attraction', group: 'Entertainment',
-    name: 'Museum of Ice Cream',
-    sub: 'Dempsey', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'snow-city', cat: 'attraction', group: 'Entertainment',
-    name: 'Snow City',
-    sub: 'Jurong', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'wildwildwet', cat: 'attraction', group: 'Entertainment',
-    name: 'Wild Wild Wet',
-    sub: 'Downtown East', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
-
-  { id: 'butterfly', cat: 'attraction', group: 'Entertainment',
-    name: 'Butterfly Park & Insect Kingdom',
-    sub: 'Sentosa Island', type: 'Admission',
-    tags: [],
-    pax: ['Ticket'] },
+  { id: 'majestic', cat: 'ferry', group: 'Ferry', name: 'Majestic Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
+  { id: 'sindo', cat: 'ferry', group: 'Ferry', name: 'Sindo Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: ['Group promo 4+'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
+  { id: 'horizon', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return / One-way', tags: [], pax: ['Return trip', 'One-way'] },
+  { id: 'horizon-group', cat: 'ferry', group: 'Ferry', name: 'Horizon Ferry (Group)', sub: 'HarbourFront ⇄ Harbour Bay', type: 'Return trip', tags: ['Min. 5 pax'], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
+  { id: 'batamfast', cat: 'ferry', group: 'Ferry', name: 'Batam Fast Ferry', sub: 'HarbourFront ⇄ Batam Centre', type: 'Return trip', tags: [], pax: ['Indonesian passport', 'Singapore passport', 'Foreign passport'] },
+  { id: 'uss', cat: 'attraction', group: 'Sentosa', name: 'Universal Studios Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
+  { id: 'adventure-cove', cat: 'attraction', group: 'Sentosa', name: 'Adventure Cove Waterpark', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'harry-potter', cat: 'attraction', group: 'Sentosa', name: 'Harry Potter: Visions of Magic', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak'] },
+  { id: 'oceanarium', cat: 'attraction', group: 'Sentosa', name: 'Singapore Oceanarium', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'marine-mammal', cat: 'attraction', group: 'Sentosa', name: 'Marine Mammal Habitat', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'wot', cat: 'attraction', group: 'Sentosa', name: 'Wings of Time', sub: 'Sentosa, Fireworks Show', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'cable-car', cat: 'attraction', group: 'Sentosa', name: 'Singapore Cable Car', sub: 'Sentosa Line + Mount Faber Line', type: 'Two-way ride', tags: [], pax: ['Ticket'] },
+  { id: 'skyhelix', cat: 'attraction', group: 'Sentosa', name: 'SkyHelix Sentosa', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'skyslide', cat: 'attraction', group: 'Sentosa', name: 'SkyPark Skyslide', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'sentosa-4d', cat: 'attraction', group: 'Sentosa', name: 'Sentosa 4D AdventureLand', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'ifly', cat: 'attraction', group: 'Sentosa', name: 'iFly Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'megazip', cat: 'attraction', group: 'Sentosa', name: 'Mega Adventure Park (MegaZip)', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'headrock', cat: 'attraction', group: 'Sentosa', name: 'HeadRock VR', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'hyperdrive', cat: 'attraction', group: 'Sentosa', name: 'HyperDrive Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'luge', cat: 'attraction', group: 'Sentosa', name: 'Skyline Luge Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Off-Peak', 'Peak', 'Super-Peak', 'Night'] },
+  { id: 'zoo', cat: 'attraction', group: 'Mandai Wildlife', name: 'Singapore Zoo (with Tram)', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
+  { id: 'rainforest', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild Asia', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'rainforest-adv', cat: 'attraction', group: 'Mandai Wildlife', name: 'Rainforest Wild + Adventure', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'river-wonders', cat: 'attraction', group: 'Mandai Wildlife', name: 'River Wonders', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'bird-paradise', cat: 'attraction', group: 'Mandai Wildlife', name: 'Bird Paradise', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'night-safari', cat: 'attraction', group: 'Mandai Wildlife', name: 'Night Safari', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Adult', 'Child'] },
+  { id: 'curiosity-cove', cat: 'attraction', group: 'Mandai Wildlife', name: 'Curiosity Cove', sub: 'Mandai', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'gbtb', cat: 'attraction', group: 'Gardens by the Bay', name: 'Flower Dome + Cloud Forest', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'supertree', cat: 'attraction', group: 'Gardens by the Bay', name: 'Supertree Observatory', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'floral-fantasy', cat: 'attraction', group: 'Gardens by the Bay', name: 'Floral Fantasy', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'gbtb-shuttle', cat: 'attraction', group: 'Gardens by the Bay', name: 'Shuttle Bus Combo', sub: 'Gardens by the Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'flyer', cat: 'attraction', group: 'Marina Bay', name: 'Singapore Flyer', sub: 'Marina Bay', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'sky-dining', cat: 'attraction', group: 'Marina Bay', name: '165 Sky Dining by Singapore Flyer', sub: 'Marina Bay', type: 'Dining experience', tags: [], pax: ['Ticket'] },
+  { id: 'mbs-skypark', cat: 'attraction', group: 'Marina Bay', name: 'MBS SkyPark Observation Deck', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'digital-light', cat: 'attraction', group: 'Marina Bay', name: 'Digital Light Canvas by teamLab', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'sampan', cat: 'attraction', group: 'Marina Bay', name: 'Sampan Rides', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'artscience', cat: 'attraction', group: 'Marina Bay', name: 'ArtScience Museum', sub: 'Marina Bay Sands', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'teamlab', cat: 'attraction', group: 'Marina Bay', name: 'teamLab Future World', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'flesh-bones', cat: 'attraction', group: 'Marina Bay', name: 'Flesh and Bones: The Art of Anatomy', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'into-ocean', cat: 'attraction', group: 'Marina Bay', name: 'Into the Ocean: Journey Beneath', sub: 'ArtScience Museum', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'nat-gallery', cat: 'attraction', group: 'Museums & Culture', name: 'National Gallery Singapore', sub: 'Civic District', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'art-museum', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Art Museum', sub: 'Tanjong Pagar', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'illusions', cat: 'attraction', group: 'Museums & Culture', name: 'Museum of Illusions', sub: 'Sentosa', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'science-centre', cat: 'attraction', group: 'Museums & Culture', name: 'Singapore Science Centre', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'kidstop', cat: 'attraction', group: 'Museums & Culture', name: 'Science Centre KidsSTOP', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'orchid-garden', cat: 'attraction', group: 'Museums & Culture', name: 'National Orchid Garden', sub: 'Botanic Gardens', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'duck-tour', cat: 'attraction', group: 'Tours', name: 'DUCK Tour Singapore', sub: 'Suntec City', type: 'Tour', tags: [], pax: ['Ticket'] },
+  { id: 'dukw', cat: 'attraction', group: 'Tours', name: 'Captain Explorer DUKW Tours', sub: 'Marina Bay', type: 'Tour', tags: [], pax: ['Ticket'] },
+  { id: 'funvee', cat: 'attraction', group: 'Tours', name: 'FunVee Open-Top Bus', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'] },
+  { id: 'bigbus', cat: 'attraction', group: 'Tours', name: 'Big Bus Singapore', sub: 'Hop-on Hop-off', type: 'Tour', tags: [], pax: ['Ticket'] },
+  { id: 'river-cruise', cat: 'attraction', group: 'Tours', name: 'Singapore River Cruise', sub: 'Clarke Quay', type: 'Cruise', tags: [], pax: ['Ticket'] },
+  { id: 'mb-cruise', cat: 'attraction', group: 'Tours', name: 'Marina Bay Sightseeing Cruise', sub: 'Marina Bay', type: 'Cruise', tags: [], pax: ['Ticket'] },
+  { id: 'canopy-park', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Park', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'hedge-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Hedge Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'mirror-maze', cat: 'attraction', group: 'Jewel Changi', name: 'Mirror Maze', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'walking-net', cat: 'attraction', group: 'Jewel Changi', name: 'Walking Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'bouncing-net', cat: 'attraction', group: 'Jewel Changi', name: 'Bouncing Net', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'canopy-bridge', cat: 'attraction', group: 'Jewel Changi', name: 'Canopy Bridge', sub: 'Jewel Changi Airport', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'kiztopia', cat: 'attraction', group: 'Family & Kids', name: 'Kiztopia Marina Square', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'tayo', cat: 'attraction', group: 'Family & Kids', name: 'Tayo Station', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'pororo', cat: 'attraction', group: 'Family & Kids', name: 'Pororo Park Singapore', sub: 'Marina Square', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'superpark', cat: 'attraction', group: 'Family & Kids', name: 'SuperPark Singapore', sub: 'Suntec City', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'kidzania', cat: 'attraction', group: 'Family & Kids', name: 'KidZania Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'minecraft', cat: 'attraction', group: 'Family & Kids', name: 'Minecraft Experience: Villager Rescue', sub: 'Singapore', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'tussauds', cat: 'attraction', group: 'Entertainment', name: 'Madame Tussauds Singapore', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'ice-cream', cat: 'attraction', group: 'Entertainment', name: 'Museum of Ice Cream', sub: 'Dempsey', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'snow-city', cat: 'attraction', group: 'Entertainment', name: 'Snow City', sub: 'Jurong', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'wildwildwet', cat: 'attraction', group: 'Entertainment', name: 'Wild Wild Wet', sub: 'Downtown East', type: 'Admission', tags: [], pax: ['Ticket'] },
+  { id: 'butterfly', cat: 'attraction', group: 'Entertainment', name: 'Butterfly Park & Insect Kingdom', sub: 'Sentosa Island', type: 'Admission', tags: [], pax: ['Ticket'] },
 ];
 
-// ============================================================
-//  REVIEWS — Sample data, replace with real Carousell reviews
-// ============================================================
+// REVIEWS — Sample data, replace with real Carousell reviews
 const REVIEWS = [
   { n: 5, t: 'Cheaper than buying direct, tickets came through within the hour. Highly recommended!', o: 'Rina S.', p: 'Sindo Ferry', d: 'Aug 2026' },
   { n: 5, t: 'Bought USS and Night Safari tickets, super smooth process. Thank you Niguka!', o: 'Andy M.', p: 'USS + Night Safari', d: 'Jul 2026' },
@@ -1149,14 +787,44 @@ const REVIEWS = [
   { n: 4, t: 'Fast replies, good price. Helped me pick the right ferry schedule too.', o: 'Bryan P.', p: 'Horizon Ferry', d: 'May 2026' },
 ];
 
-
-// ============================================================
-//  APP LOGIC
-// ============================================================
+// ── APP LOGIC ───────────────────────────────────────────────
 
 let activeFilter = 'all';
+let searchQuery = '';
 const $ = (s) => document.querySelector(s);
 
+// 1. SKELETON LOADING
+function showSkeleton() {
+  const grid = $('#productGrid');
+  let html = '';
+  for (let i = 0; i < 6; i++) {
+    html += '<div class="skeleton-card"><div class="skeleton-body">' +
+      '<div class="skeleton-line w70"></div>' +
+      '<div class="skeleton-line w50"></div>' +
+      '<div class="skeleton-line w30"></div>' +
+      '</div><div class="skeleton-stub"></div></div>';
+  }
+  grid.innerHTML = html;
+}
+
+// 2. SEARCH
+const searchInput = $('#searchInput');
+const searchClear = $('#searchClear');
+searchInput.oninput = () => {
+  searchQuery = searchInput.value.trim().toLowerCase();
+  searchClear.classList.toggle('visible', searchQuery.length > 0);
+  renderGrid();
+  renderJumpChips();
+};
+searchClear.onclick = () => {
+  searchInput.value = '';
+  searchQuery = '';
+  searchClear.classList.remove('visible');
+  renderGrid();
+  renderJumpChips();
+};
+
+// 3. FILTERS
 function renderFilters() {
   const counts = { all: TICKETS.length, ferry: 0, attraction: 0 };
   TICKETS.forEach(t => counts[t.cat]++);
@@ -1167,18 +835,54 @@ function renderFilters() {
     const btn = document.createElement('button');
     btn.className = 'filter-btn' + (activeFilter === key ? ' active' : '');
     btn.innerHTML = label + ' <span class="count">(' + counts[key] + ')</span>';
-    btn.onclick = () => { activeFilter = key; renderFilters(); renderGrid(); };
+    btn.onclick = () => { activeFilter = key; renderFilters(); renderGrid(); renderJumpChips(); };
     el.appendChild(btn);
   }
 }
 
+// 4. JUMP CHIPS
+function renderJumpChips() {
+  const chips = $('#jumpChips');
+  const groups = [];
+  const seen = {};
+  getFiltered().forEach(t => {
+    if (t.group && !seen[t.group]) { seen[t.group] = true; groups.push(t.group); }
+  });
+  chips.innerHTML = '';
+  groups.forEach(g => {
+    const btn = document.createElement('button');
+    btn.className = 'jump-chip';
+    btn.textContent = (GROUP_ICONS[g] || '') + ' ' + g;
+    btn.onclick = () => {
+      const target = document.getElementById('group-' + g.replace(/[^a-zA-Z0-9]/g, ''));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    chips.appendChild(btn);
+  });
+}
+
+// Helper: get filtered tickets
+function getFiltered() {
+  return TICKETS.filter(t => {
+    if (activeFilter !== 'all' && t.cat !== activeFilter) return false;
+    if (searchQuery) {
+      const hay = (t.name + ' ' + t.sub + ' ' + t.group + ' ' + t.type).toLowerCase();
+      return hay.includes(searchQuery);
+    }
+    return true;
+  });
+}
+
+// 5. GRID with emoji icons
 function renderGrid() {
   const grid = $('#productGrid');
+  const filtered = getFiltered();
   grid.innerHTML = '';
-  const filtered = TICKETS.filter(t => {
-    if (activeFilter === 'all') return true;
-    return t.cat === activeFilter;
-  });
+
+  if (filtered.length === 0) {
+    $('#resultCount').innerHTML = '<div class="no-results">No tickets found for "' + searchInput.value + '"</div>';
+    return;
+  }
   $('#resultCount').textContent = filtered.length + ' tickets available';
 
   let lastGroup = '';
@@ -1187,7 +891,8 @@ function renderGrid() {
       lastGroup = t.group;
       const gh = document.createElement('div');
       gh.className = 'group-header';
-      gh.textContent = t.group;
+      gh.id = 'group-' + t.group.replace(/[^a-zA-Z0-9]/g, '');
+      gh.textContent = (GROUP_ICONS[t.group] || '') + ' ' + t.group;
       grid.appendChild(gh);
     }
     const card = document.createElement('div');
@@ -1198,18 +903,17 @@ function renderGrid() {
     card.onclick = () => openModal(t);
     card.onkeydown = (e) => { if (e.key === 'Enter') openModal(t); };
 
+    const icon = GROUP_ICONS[t.group] || '\u{1F3AB}';
     card.innerHTML =
       '<div class="card-body">' +
+        '<div class="card-icon">' + icon + '</div>' +
         '<div class="card-name">' + t.name + '</div>' +
         '<div class="card-sub">' + t.sub + '</div>' +
         '<span class="card-type">' + t.type + '</span>' +
-        (t.tags.length ? '<div class="card-tags">' +
-          t.tags.map(tag => '<span class="card-tag">' + tag + '</span>').join('') +
-        '</div>' : '') +
+        (t.tags.length ? '<div class="card-tags">' + t.tags.map(tag => '<span class="card-tag">' + tag + '</span>').join('') + '</div>' : '') +
       '</div>' +
       '<div class="card-stub">' +
-        '<div class="card-notch-top"></div>' +
-        '<div class="card-notch-bot"></div>' +
+        '<div class="card-notch-top"></div><div class="card-notch-bot"></div>' +
         '<div class="card-stub-icon">&#128172;</div>' +
         '<div class="card-stub-text">Ask<br>Price</div>' +
       '</div>';
@@ -1217,40 +921,33 @@ function renderGrid() {
   });
 }
 
+// 6. MODAL with smooth close
 function openModal(t) {
   const modal = $('#modal');
   $('#modalTitle').textContent = t.name;
-  $('#modalSub').textContent = t.sub + ' — ' + t.type;
+  $('#modalSub').textContent = t.sub + ' \u2014 ' + t.type;
   const body = $('#modalBody');
   const isFerry = t.cat === 'ferry';
 
-  let html = '<div class="modal-note">Fill in your details below and we\'ll send an enquiry to Niguka on WhatsApp. No payment is made here — pricing and availability will be confirmed via chat.</div>';
-
+  let html = '<div class="modal-note">Fill in your details below and we\'ll send an enquiry to Niguka on WhatsApp. No payment is made here \u2014 pricing and availability will be confirmed via chat.</div>';
   t.pax.forEach((label, i) => {
-    html += '<div class="pax-row">' +
-      '<div class="pax-label">' + label + '</div>' +
+    html += '<div class="pax-row"><div class="pax-label">' + label + '</div>' +
       '<div class="stepper">' +
-        '<button type="button" aria-label="Decrease" onclick="stepQty(' + i + ',-1)">\u2212</button>' +
-        '<div class="qty" id="qty' + i + '">0</div>' +
-        '<button type="button" aria-label="Increase" onclick="stepQty(' + i + ',1)">+</button>' +
-      '</div>' +
-    '</div>';
+      '<button type="button" aria-label="Decrease" onclick="stepQty(' + i + ',-1)">\u2212</button>' +
+      '<div class="qty" id="qty' + i + '">0</div>' +
+      '<button type="button" aria-label="Increase" onclick="stepQty(' + i + ',1)">+</button>' +
+      '</div></div>';
   });
-
   html += '<div style="margin-top:18px">';
   if (isFerry) {
-    html += '<div class="form-row"><label for="dateDepart">Departure date</label>' +
-      '<input type="date" id="dateDepart" min="' + todayStr() + '"></div>' +
-      '<div class="form-row"><label for="dateReturn">Return date</label>' +
-      '<input type="date" id="dateReturn" min="' + todayStr() + '"></div>';
+    html += '<div class="form-row"><label for="dateDepart">Departure date</label><input type="date" id="dateDepart" min="' + todayStr() + '"></div>';
+    html += '<div class="form-row"><label for="dateReturn">Return date</label><input type="date" id="dateReturn" min="' + todayStr() + '"></div>';
   } else {
-    html += '<div class="form-row"><label for="dateVisit">Visit date</label>' +
-      '<input type="date" id="dateVisit" min="' + todayStr() + '"></div>';
+    html += '<div class="form-row"><label for="dateVisit">Visit date</label><input type="date" id="dateVisit" min="' + todayStr() + '"></div>';
   }
   html += '</div>';
-
   html += '<button class="btn-wa" id="btnSend" disabled>&#128172; Enquire on WhatsApp</button>';
-  html += '<div class="btn-wa-note">Opens WhatsApp with your enquiry — no payment</div>';
+  html += '<div class="btn-wa-note">Opens WhatsApp with your enquiry \u2014 no payment</div>';
 
   body.innerHTML = html;
   modal._ticket = t;
@@ -1263,7 +960,18 @@ function openModal(t) {
     $('#dateVisit').onchange = checkReady;
   }
   $('#btnSend').onclick = () => sendEnquiry();
+  modal.classList.remove('closing');
   modal.showModal();
+}
+
+function closeModal() {
+  const modal = $('#modal');
+  modal.classList.add('closing');
+  modal.addEventListener('animationend', function handler() {
+    modal.classList.remove('closing');
+    modal.close();
+    modal.removeEventListener('animationend', handler);
+  });
 }
 
 function todayStr() {
@@ -1304,27 +1012,48 @@ function sendEnquiry() {
   const modal = $('#modal');
   const t = modal._ticket;
   const isFerry = t.cat === 'ferry';
-
-  let msg = 'Hi Niguka, I\'d like to enquire about:\n\n';
-  msg += '*' + t.name + '* \u2014 ' + t.sub + '\n';
+  let msg = 'Hi Niguka, I\'d like to enquire about:\n\n*' + t.name + '* \u2014 ' + t.sub + '\n';
   const parts = [];
   t.pax.forEach((label, i) => { if (modal._qty[i] > 0) parts.push(modal._qty[i] + '\u00d7 ' + label); });
   msg += parts.join(', ') + '\n';
-
   if (isFerry) {
-    msg += 'Departure: ' + fmtDate($('#dateDepart').value) + '\n';
-    msg += 'Return: ' + fmtDate($('#dateReturn').value) + '\n';
+    msg += 'Departure: ' + fmtDate($('#dateDepart').value) + '\nReturn: ' + fmtDate($('#dateReturn').value) + '\n';
   } else {
     msg += 'Visit date: ' + fmtDate($('#dateVisit').value) + '\n';
   }
   msg += '\nPlease let me know the price and availability. Thank you!';
   window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
-  modal.close();
+  closeModal();
 }
 
-$('#modalClose').onclick = () => $('#modal').close();
-$('#modal').onclick = (e) => { if (e.target === $('#modal')) $('#modal').close(); };
+$('#modalClose').onclick = () => closeModal();
+$('#modal').onclick = (e) => { if (e.target === $('#modal')) closeModal(); };
 
+// 7. WA BAR AUTO-HIDE on scroll
+let lastScrollY = 0;
+const waBar = $('#waBar');
+const scrollTopBtn = $('#scrollTop');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  // WA bar: hide on scroll down, show on scroll up
+  if (y > lastScrollY && y > 300) {
+    waBar.classList.add('bar-hidden');
+  } else {
+    waBar.classList.remove('bar-hidden');
+  }
+  // Scroll-to-top: show after hero
+  if (y > 500) {
+    scrollTopBtn.classList.add('visible');
+  } else {
+    scrollTopBtn.classList.remove('visible');
+  }
+  lastScrollY = y;
+}, { passive: true });
+
+scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// REVIEWS
 function renderReviews() {
   const c = $('#reviewsContainer');
   REVIEWS.forEach(r => {
@@ -1338,12 +1067,11 @@ function renderReviews() {
   });
 }
 
-// Hero slideshow
+// HERO SLIDESHOW
 const slides = document.querySelectorAll('.hero-slide');
 const dots = document.querySelectorAll('.hero-dot');
 let currentSlide = 0;
 let slideInterval;
-
 function goToSlide(idx) {
   slides[currentSlide].classList.remove('active');
   dots[currentSlide].classList.remove('active');
@@ -1351,28 +1079,19 @@ function goToSlide(idx) {
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
 }
+function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+dots.forEach((dot, i) => { dot.onclick = () => { goToSlide(i); resetTimer(); }; });
+function resetTimer() { clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); }
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) resetTimer();
 
-function nextSlide() {
-  goToSlide((currentSlide + 1) % slides.length);
-}
-
-dots.forEach((dot, i) => {
-  dot.onclick = () => { goToSlide(i); resetTimer(); };
-});
-
-function resetTimer() {
-  clearInterval(slideInterval);
-  slideInterval = setInterval(nextSlide, 5000);
-}
-
-// Respect reduced motion
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  resetTimer();
-}
-
-renderFilters();
-renderGrid();
-renderReviews();
+// INIT — show skeleton briefly then render
+showSkeleton();
+setTimeout(() => {
+  renderFilters();
+  renderGrid();
+  renderJumpChips();
+  renderReviews();
+}, 150);
 </script>
 </body>
 </html>
